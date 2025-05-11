@@ -41,7 +41,7 @@ This proof of concept demonstrates:
 - **Accessing Nginx-Nidhogg through yggdrasil-node-b**: http://localhost:8082
 
 ## Configuration
-The node configuration files [yggdrasil-node-a.conf](/config/yggdrasil-node-a.conf) and [yggdrasil-node-b.conf](/config/yggdrasil-node-b.conf) should be customized according to the [Yggdrasil Configuration Reference](https://yggdrasil-network.github.io/configurationref.html). 
+The node configuration files [yggdrasil-node-a.conf](./config/yggdrasil/yggdrasil-node-a.conf) and [yggdrasil-node-b.conf](./config/yggdrasil/yggdrasil-node-b.conf) should be customized according to the [Yggdrasil Configuration Reference](https://yggdrasil-network.github.io/configurationref.html). 
 
 **⚠️ Security Warning**: Both configuration files contain private keys that are included for demonstration purposes only. In a real-world scenario, never commit private keys to a repository. Generate new keys for each deployment and store them securely.
 
