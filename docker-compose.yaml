@@ -1,0 +1,61 @@
+
+services:
+  # Yggdrasil mesh network nodes
+  yggdrasil-node-a:
+    build: .
+    ports:
+      - "8081:8081"
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun
+    volumes:
+      - "./config/yggdrasil/yggdrasil-node-a.conf:/etc/yggdrasil/yggdrasil.conf"
+      - "./config/supervisord/supervisord-a.conf:/etc/supervisord.conf"
+    sysctls:
+      - "net.ipv6.conf.all.disable_ipv6=0"
+    mac_address: 1E:FC:B2:8D:DF:D4
+    networks:
+      - node-a
+      - peering
+
+  yggdrasil-node-b:
+    build: .
+    ports:
+      - "8082:8082"
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun
+    volumes:
+      - "./config/yggdrasil/yggdrasil-node-b.conf:/etc/yggdrasil/yggdrasil.conf"
+      - "./config/supervisord/supervisord-b.conf:/etc/supervisord.conf"
+    sysctls:
+      - "net.ipv6.conf.all.disable_ipv6=0"
+    mac_address: 1E:FC:B2:8D:DF:D5
+    networks:
+      - node-b
+      - peering
+
+  # Web servers
+  nginx-nidhogg:
+    image: nginx:alpine
+    volumes:
+      - ./config/nginx/nginx-nidhogg.conf:/etc/nginx/conf.d/default.conf
+      - ./config/nginx/nidhogg.txt:/usr/share/nginx/html/nidhogg.txt
+    networks:
+      - node-a
+
+  nginx-ratatosk:
+    image: nginx:alpine
+    volumes:
+      - ./config/nginx/nginx-ratatosk.conf:/etc/nginx/conf.d/default.conf
+      - ./config/nginx/ratatosk.txt:/usr/share/nginx/html/ratatosk.txt
+    networks:
+      - node-b
+    
+networks:
+  node-a:
+  node-b:
+  peering:
+
